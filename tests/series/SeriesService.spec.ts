@@ -2,10 +2,10 @@ import { assert, expect } from 'chai';
 import 'mocha';
 import sinon from "ts-sinon";
 
-import { SeriesService } from '../../src/series/domain/SeriesService';
-import { ISeriesRepository } from '../../src/series/domain/ISeriesRepository';
-import { Series } from '../../src/series/domain/Series';
-import { ISeriesCacheService } from '../../src/series/domain/ISeriesCacheService';
+import { SeriesService } from '../../src/core/series/domain/SeriesService';
+import { ISeriesRepository } from '../../src/core/series/domain/ISeriesRepository';
+import { Series } from '../../src/core/series/domain/Series';
+import { ISeriesCacheService } from '../../src/core/series/domain/ISeriesCacheService';
 import { TestSeriesCacheService } from '../series/TestSeriesCacheService';
 import { TestSeriesRepository } from './TestSeriesRepository';
 

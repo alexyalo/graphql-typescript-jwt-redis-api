@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import 'mocha';
 import sinon from 'sinon';
 
-import { IEpisodeRepository } from '../../../src/episode/domain/IEpisodeRepository';
-import { OMDBEpisodeRepository } from '../../../src/episode/infrastructure/OMDBEpisodeRepository';
+import { IEpisodeRepository } from '../../../src/core/episode/domain/IEpisodeRepository';
+import { OMDBEpisodeRepository } from '../../../src/core/episode/infrastructure/OMDBEpisodeRepository';
 import { TestHttpClient } from '../../TestHttpClient';
-import { Episode } from '../../../src/episode/domain/Episode';
-import { ApiResponse } from '../../../src/external/ApiResponse';
+import { Episode } from '../../../src/core/episode/domain/Episode';
+import { ApiResponse } from '../../../src/infrastructure/http/ApiResponse';
 
 describe('OMDBEpisodeRepository Test', () => {
 

@@ -2,8 +2,8 @@ import { assert } from 'chai';
 import 'mocha';
 import sinon from 'sinon';
 
-import { MovieAPI } from '../../src/movie/usecase/MovieAPI';
-import { MovieService } from '../../src/movie/domain/MovieService';
+import { MovieAPI } from '../../src/core/movie/usecase/MovieAPI';
+import { MovieService } from '../../src/core/movie/domain/MovieService';
 import { TestMovieCacheService } from './TestMovieCacheService';
 import { TestMovieRepository } from './TestMovieRepository';
 

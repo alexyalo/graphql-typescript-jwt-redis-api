@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import 'mocha';
 import sinon from 'sinon';
 
-import { IMovieRepository } from '../../../src/movie/domain/IMovieRepository';
-import { OMDBMovieRepository } from '../../../src/movie/infrastructure/OMDBMovieRepository';
+import { IMovieRepository } from '../../../src/core/movie/domain/IMovieRepository';
+import { OMDBMovieRepository } from '../../../src/core/movie/infrastructure/OMDBMovieRepository';
 import { TestHttpClient } from '../../TestHttpClient';
-import { Movie } from '../../../src/movie/domain/Movie';
-import { ApiResponse } from '../../../src/external/ApiResponse';
+import { Movie } from '../../../src/core/movie/domain/Movie';
+import { ApiResponse } from '../../../src/infrastructure/http/ApiResponse';
 
 describe('OMDBMovieRepository Test', () => {
 

@@ -2,8 +2,8 @@ import { assert } from 'chai';
 import 'mocha';
 import sinon from 'sinon';
 
-import { EpisodeAPI } from '../../src/episode/usecase/EpisodeAPI';
-import { EpisodeService } from '../../src/episode/domain/EpisodeService';
+import { EpisodeAPI } from '../../src/core/episode/usecase/EpisodeAPI';
+import { EpisodeService } from '../../src/core/episode/domain/EpisodeService';
 import { TestEpisodeCacheService } from '../episode/TestEpisodeCacheService';
 import { TestEpisodeRepository } from './TestEpisodeRepository';
 

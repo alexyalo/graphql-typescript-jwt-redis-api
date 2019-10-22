@@ -1,5 +1,5 @@
-import { IEpisodeCacheService } from "../../src/episode/domain/IEpisodeCacheService";
-import { Episode } from '../../src/episode/domain/Episode';
+import { IEpisodeCacheService } from "../../src/core/episode/domain/IEpisodeCacheService";
+import { Episode } from '../../src/core/episode/domain/Episode';
 
 export class TestEpisodeCacheService implements IEpisodeCacheService {
     set(key: string, value: Episode[]) {

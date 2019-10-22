@@ -1,0 +1,10 @@
+type Movie {
+  title: String
+  imdbID: String
+  poster: String
+  year: String
+}
+
+type Query {
+   searchMovies(title: String!): [Movie!]! @isAuth
+}

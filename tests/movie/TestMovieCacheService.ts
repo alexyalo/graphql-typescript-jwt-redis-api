@@ -1,5 +1,5 @@
-import { IMovieCacheService } from "../../src/movie/domain/IMovieCacheService";
-import { Movie } from '../../src/movie/domain/Movie';
+import { IMovieCacheService } from "../../src/core/movie/domain/IMovieCacheService";
+import { Movie } from '../../src/core/movie/domain/Movie';
 
 export class TestMovieCacheService implements IMovieCacheService {
     set(key: string, value: Movie[]) {

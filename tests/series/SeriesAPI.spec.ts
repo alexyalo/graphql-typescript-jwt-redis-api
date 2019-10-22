@@ -2,8 +2,8 @@ import { assert } from 'chai';
 import 'mocha';
 import sinon from 'sinon';
 
-import { SeriesAPI } from '../../src/series/usecase/SeriesAPI';
-import { SeriesService } from '../../src/series/domain/SeriesService';
+import { SeriesAPI } from '../../src/core/series/usecase/SeriesAPI';
+import { SeriesService } from '../../src/core/series/domain/SeriesService';
 import { TestSeriesCacheService } from '../series/TestSeriesCacheService';
 import { TestSeriesRepository } from './TestSeriesRepository';
 

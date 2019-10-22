@@ -1,20 +1,22 @@
-import { ApolloServer } from 'apollo-server';
+import { resolve } from "path";
+import { config } from "dotenv";
+config({ path: resolve(__dirname, "../.env") });
 
 import { environment } from './environment';
-import resolvers from './resolvers';
-import typeDefs from './schemas';
+import { App } from './app';
+import { UseCaseProvider } from "./dependency-injection/UseCaseProvider";
+import { ServiceProvider } from "./dependency-injection/ServiceProvider";
+import { RepositoryProvider } from "./dependency-injection/RepositoryProvider";
+import { HttpClient } from "./infrastructure/http/HttpClient";
+import { CacheServiceProvider } from "./dependency-injection/CacheServiceProvider";
+import { DataSourceProvider } from "./dependency-injection/DataSourceProvider";
 
-const server = new ApolloServer({
-  resolvers,
-  typeDefs,
-  introspection: environment.apollo.introspection,
-  playground: environment.apollo.playground
-});
+let httpClient = new HttpClient();
+let repositoryProvider = new RepositoryProvider(httpClient, environment);
+let cacheServiceProvider = new CacheServiceProvider();
+let serviceProvider = new ServiceProvider(repositoryProvider, cacheServiceProvider);
+let useCaseProvider = new UseCaseProvider(serviceProvider);
+let dataSourceProvider = new DataSourceProvider(useCaseProvider);
 
-server.listen(environment.port)
-  .then(({ url }) => console.log(`Server ready at ${url}. `));
-
-if (module.hot) {
-  module.hot.accept();
-  module.hot.dispose(() => server.stop());
-}
+let app = new App(dataSourceProvider, environment);
+app.init();

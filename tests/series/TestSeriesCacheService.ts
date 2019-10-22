@@ -1,5 +1,5 @@
-import { ISeriesCacheService } from "../../src/series/domain/ISeriesCacheService";
-import { Series } from '../../src/series/domain/Series';
+import { ISeriesCacheService } from "../../src/core/series/domain/ISeriesCacheService";
+import { Series } from '../../src/core/series/domain/Series';
 
 export class TestSeriesCacheService implements ISeriesCacheService {
     set(key: string, value: Series[]) {

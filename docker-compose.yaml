@@ -1,0 +1,35 @@
+version: "2.1"
+
+services:
+  api:
+    build: ./
+    ports:
+    - "4001:4001"
+    links:
+      - db
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+    - ./src:/opt/api/src
+    environment:
+    - NODE_ENV=${NODE_ENV}
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - mysql-db:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+# Names our volume
+volumes:
+  mysql-db:

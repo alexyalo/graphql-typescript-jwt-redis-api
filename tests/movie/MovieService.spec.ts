@@ -2,10 +2,10 @@ import { assert, expect } from 'chai';
 import 'mocha';
 import sinon from "ts-sinon";
 
-import { MovieService } from '../../src/movie/domain/MovieService';
-import { IMovieRepository } from '../../src/movie/domain/IMovieRepository';
-import { Movie } from '../../src/movie/domain/Movie';
-import { IMovieCacheService } from '../../src/movie/domain/IMovieCacheService';
+import { MovieService } from '../../src/core/movie/domain/MovieService';
+import { IMovieRepository } from '../../src/core/movie/domain/IMovieRepository';
+import { Movie } from '../../src/core/movie/domain/Movie';
+import { IMovieCacheService } from '../../src/core/movie/domain/IMovieCacheService';
 import { TestMovieCacheService } from './TestMovieCacheService';
 import { TestMovieRepository } from './TestMovieRepository';
 
