@@ -10,6 +10,10 @@ This is a Dockerized GraphQL API built with Typescript and designed with the fol
 Users of this API have the ability of signing up for a JWT that will grant them access to search for movies, series and episodes in the OMDBApi external service.
 OMDBApi results are cached in a redis instance and fetched from there in successive requests for faster results.
 
+## Requirements
+* Docker
+* docker-compose
+
 ## How to build
 Clone this repository and go to a terminal and run this command
 ```
