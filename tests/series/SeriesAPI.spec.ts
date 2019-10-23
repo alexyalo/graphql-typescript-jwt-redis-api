@@ -13,12 +13,13 @@ describe('SeriesAPI Test', () => {
     let seriesService = new SeriesService(new TestSeriesRepository(), new TestSeriesCacheService());
     let searchSpy = sinon.spy();
     seriesService.search = searchSpy;
+    let page = 1;
 
     let seriesAPI = new SeriesAPI(seriesService);
 
-    seriesAPI.getByTitle('The Godfather');
+    seriesAPI.getByTitle('The Godfather', page);
     
-    assert(searchSpy.calledWithExactly('The Godfather'));
+    assert(searchSpy.calledWithExactly('The Godfather', page));
   });
  
 });

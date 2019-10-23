@@ -15,10 +15,11 @@ describe('MovieAPI Test', () => {
     movieService.search = searchSpy;
 
     let movieAPI = new MovieAPI(movieService);
-
-    movieAPI.getByTitle('The Godfather');
+    let page = 1;
     
-    assert(searchSpy.calledWithExactly('The Godfather'));
+    movieAPI.getByTitle('The Godfather', page);
+    
+    assert(searchSpy.calledWithExactly('The Godfather', page));
   });
  
 });

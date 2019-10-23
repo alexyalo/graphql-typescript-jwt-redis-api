@@ -8,6 +8,7 @@ import { Series } from '../../src/core/series/domain/Series';
 import { ISeriesCacheService } from '../../src/core/series/domain/ISeriesCacheService';
 import { TestSeriesCacheService } from '../series/TestSeriesCacheService';
 import { TestSeriesRepository } from './TestSeriesRepository';
+import { SeriesSearchResult } from '../../src/core/series/domain/SeriesSearchResult';
 
 describe('SeriesService Test', () => {
 
@@ -15,14 +16,12 @@ describe('SeriesService Test', () => {
         title: 'Test Series 1',
         year: 1980,
         imdbID: "imdbID",
-        type: "series",
         poster: "test"
     };
     let series2: Series = {
         title: 'Test Series 2',
         year: 1982,
         imdbID: "imdbID",
-        type: "series",
         poster: "test"
     };
 
@@ -35,10 +34,11 @@ describe('SeriesService Test', () => {
         let fakeCacheResponse = new Promise((resolve) => resolve(expectedSeries));
         let cacheServiceGetFake = sinon.fake.returns(fakeCacheResponse);
         let cacheService = getCacheServiceWith(cacheServiceGetFake);
+        let page = 1;
 
         // when
         let seriesService = new SeriesService(seriesRepository, cacheService);
-        let actualSeries = await seriesService.search('Test');
+        let actualSeries = await seriesService.search('Test', page);
 
         // then
         expect(actualSeries).to.eql(expectedSeries);
@@ -46,7 +46,10 @@ describe('SeriesService Test', () => {
 
     it('should get series array from seriesRepository and set cache when cache is null', async () => {
         // given
-        let expectedSeries = [series1, series2];
+        let expectedSeries: SeriesSearchResult = {
+            totalResults: 2,
+            data: [series1, series2]
+        };
         let seriesResult = new Promise((resolve) => resolve(expectedSeries));
         let seriesServiceSearchFake = sinon.fake.returns(seriesResult);
         let seriesRepository = getSeriesRepositoryWith(seriesServiceSearchFake);
@@ -54,14 +57,15 @@ describe('SeriesService Test', () => {
         let cacheServiceGetFake = sinon.fake.returns(null);
         let cacheServiceSetSpy = sinon.spy();
         let cacheService = getCacheServiceWith(cacheServiceGetFake, cacheServiceSetSpy);
+        let page = 1;
 
         // when
         let seriesService = new SeriesService(seriesRepository, cacheService);
-        let actualSeries = await seriesService.search('Test');
+        let actualSeries = await seriesService.search('Test', page);
 
         // then
         expect(actualSeries).to.eql(expectedSeries);
-        assert(cacheServiceSetSpy.calledWithExactly('Test', expectedSeries));
+        assert(cacheServiceSetSpy.calledWithExactly('Test', page, expectedSeries));
     });
 
     /* --------------------- */

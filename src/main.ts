@@ -13,7 +13,7 @@ import { DataSourceProvider } from "./dependency-injection/DataSourceProvider";
 
 let httpClient = new HttpClient();
 let repositoryProvider = new RepositoryProvider(httpClient, environment);
-let cacheServiceProvider = new CacheServiceProvider();
+let cacheServiceProvider = new CacheServiceProvider(environment);
 let serviceProvider = new ServiceProvider(repositoryProvider, cacheServiceProvider);
 let useCaseProvider = new UseCaseProvider(serviceProvider);
 let dataSourceProvider = new DataSourceProvider(useCaseProvider);

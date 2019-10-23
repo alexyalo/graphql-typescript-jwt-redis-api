@@ -1,6 +1,6 @@
-import { Episode } from "./Episode";
+import { EpisodeSearchResult } from "./EpisodeSearchResult";
 
 export interface IEpisodeCacheService {
-    set(key: string, value: Episode[]): void;
-    getByKey(key: string) : Promise<Episode[]>;
+    set(title: string, season: number, value: EpisodeSearchResult): void;
+    getByKey(title: string, season: number) : Promise<EpisodeSearchResult>;
 }

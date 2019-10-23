@@ -8,7 +8,7 @@ export class IsAuthUserDirective extends SchemaDirectiveVisitor {
     field.resolve = async function (...args) {
       let authUser, user;
       [user, {}, {authUser}] = args;
-      console.log('run');
+      
       if ((authUser && authUser.id === user.id) || user.login) {
         const result = await resolve.apply(this, args);
         return result;

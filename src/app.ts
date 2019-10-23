@@ -10,13 +10,13 @@ import { Environment } from './environment';
 
 export class App {
 
-    constructor(private dataSourceProvider: IDataSourceProvider, private environment: Environment){}
+    constructor(private dataSourceProvider: IDataSourceProvider, 
+                private environment: Environment){}
 
     public init(): ApolloServer {
         let app = express();
 
         app.use(this.getAuthMiddleware());
-
         app.use(this.onExpressError);
 
         let server = this.getApolloServer();
@@ -33,7 +33,9 @@ export class App {
             console.log(`🚀 Server ready at http://localhost:${this.environment.port}${server.graphqlPath}`);
 
             try {
-                await sequelize.sync();
+                await sequelize.sync({
+                    force: this.environment.forceSequelizeSync
+                });
                 console.error('🍕 Connected to the database');
             } catch (err) {
                 console.error('❌ Error: Cannot connect to database');
@@ -56,7 +58,9 @@ export class App {
             typeDefs: schema,
             resolvers,
             dataSources: () => ({ 
-                movieDataSource: this.dataSourceProvider.getMovieDataSource()
+                movieDataSource: this.dataSourceProvider.getMovieDataSource(),
+                episodeDataSource: this.dataSourceProvider.getEpisodeDataSource(),
+                seriesDataSource: this.dataSourceProvider.getSeriesDataSource(),
             }),
             schemaDirectives,
             introspection: this.environment.apollo.introspection,

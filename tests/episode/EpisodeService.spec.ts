@@ -8,60 +8,73 @@ import { Episode } from '../../src/core/episode/domain/Episode';
 import { IEpisodeCacheService } from '../../src/core/episode/domain/IEpisodeCacheService';
 import { TestEpisodeCacheService } from '../episode/TestEpisodeCacheService';
 import { TestEpisodeRepository } from './TestEpisodeRepository';
+import { EpisodeSearchResult } from '../../src/core/episode/domain/EpisodeSearchResult';
 
 describe('EpisodeService Test', () => {
-
+    
     let episode1: Episode = {
         title: 'Test Episode 1',
-        year: 1980,
+        released: '1994-02-02',
+        episode: 1,
         imdbID: "imdbID",
-        type: "episode",
-        poster: "test"
+        imdbRating: 10
     };
     let episode2: Episode = {
         title: 'Test Episode 2',
-        year: 1982,
+        released: '1994-02-02',
+        episode: 1,
         imdbID: "imdbID",
-        type: "episode",
-        poster: "test"
+        imdbRating: 10
     };
 
-    it('should call parse and return the episode array from cacheService', async () => {
+    it('should call parse and return the EpisodeSearchResult from cacheService', async () => {
         // given
-        let expectedEpisode = [episode1, episode2];
+        let expectedEpisodes: EpisodeSearchResult = {
+            title: 'Test',
+            season: 1,
+            totalSeasons: 1,
+            data: [episode1, episode2]
+        }
         let episodeServiceSearchFake = sinon.stub();
         let episodeRepository = getEpisodeRepositoryWith(episodeServiceSearchFake);
 
-        let fakeCacheResponse = new Promise((resolve) => resolve(expectedEpisode));
+        let fakeCacheResponse = new Promise((resolve) => resolve(expectedEpisodes));
         let cacheServiceGetFake = sinon.fake.returns(fakeCacheResponse);
         let cacheService = getCacheServiceWith(cacheServiceGetFake);
+        let season = 1;
 
         // when
         let episodeService = new EpisodeService(episodeRepository, cacheService);
-        let actualEpisode = await episodeService.search('Test');
+        let actualEpisodes = await episodeService.search('Test', season);
 
         // then
-        expect(actualEpisode).to.eql(expectedEpisode);
+        expect(actualEpisodes).to.eql(expectedEpisodes);
     });
 
     it('should get episode array from episodeRepository and set cache when cache is null', async () => {
         // given
-        let expectedEpisode = [episode1, episode2];
-        let episodeResult = new Promise((resolve) => resolve(expectedEpisode));
+        let expectedEpisodes: EpisodeSearchResult = {
+            title: 'Test',
+            season: 1,
+            totalSeasons: 1,
+            data: [episode1, episode2]
+        }
+        let episodeResult = new Promise((resolve) => resolve(expectedEpisodes));
         let episodeServiceSearchFake = sinon.fake.returns(episodeResult);
         let episodeRepository = getEpisodeRepositoryWith(episodeServiceSearchFake);
 
         let cacheServiceGetFake = sinon.fake.returns(null);
         let cacheServiceSetSpy = sinon.spy();
         let cacheService = getCacheServiceWith(cacheServiceGetFake, cacheServiceSetSpy);
+        let season = 1;
 
         // when
         let episodeService = new EpisodeService(episodeRepository, cacheService);
-        let actualEpisode = await episodeService.search('Test');
+        let actualEpisodes = await episodeService.search('Test', season);
 
         // then
-        expect(actualEpisode).to.eql(expectedEpisode);
-        assert(cacheServiceSetSpy.calledWithExactly('Test', expectedEpisode));
+        expect(actualEpisodes).to.eql(expectedEpisodes);
+        assert(cacheServiceSetSpy.calledWithExactly('Test', season, expectedEpisodes));
     });
 
     /* --------------------- */

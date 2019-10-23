@@ -17,6 +17,8 @@ export interface Environment {
   jwtEncryption: string,
   jwtExpiration: string,
   omdbApiKey: string,
+  forceSequelizeSync: boolean,
+  redisURL: string,
 }
 
 export const environment: Environment = {
@@ -36,4 +38,6 @@ export const environment: Environment = {
   jwtEncryption: process.env.JWT_ENCRYPTION || 'secureKey',
   jwtExpiration: process.env.JWT_EXPIRATION || '1y',
   omdbApiKey: process.env.OMDB_API_KEY || '',
+  forceSequelizeSync: process.env.FORCE_SEQUELIZE_SYNC === 'true',
+  redisURL: process.env.REDIS_URL || '',
 };

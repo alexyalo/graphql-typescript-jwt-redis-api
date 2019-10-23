@@ -1,5 +1,5 @@
-import { Episode } from './Episode';
+import { EpisodeSearchResult } from './EpisodeSearchResult';
 
 export interface IEpisodeRepository {
-    searchByTitle(searchValue: string) : Promise<Episode[]>;
+    searchByTitle(searchValue: string, season: number) : Promise<EpisodeSearchResult>;
 }

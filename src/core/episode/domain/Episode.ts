@@ -1,7 +1,7 @@
 export interface Episode {
-    title: string;
-    year: number;
     imdbID: string;
-    type: string;
-    poster: string;
+    title: string;
+    released: string;
+    episode: number;
+    imdbRating: number;
 }

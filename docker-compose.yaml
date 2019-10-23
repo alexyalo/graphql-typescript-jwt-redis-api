@@ -7,11 +7,13 @@ services:
     - "4001:4001"
     links:
       - db
+      - cache
     depends_on:
       db:
         condition: service_healthy
     volumes:
     - ./src:/opt/api/src
+    - ./test:/opt/api/test
     environment:
     - NODE_ENV=${NODE_ENV}
   db:
@@ -30,6 +32,10 @@ services:
       - mysql-db:/var/lib/mysql
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+  cache:
+    image: redis
+    expose:
+      - 6379
 # Names our volume
 volumes:
   mysql-db:

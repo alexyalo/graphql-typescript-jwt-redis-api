@@ -5,6 +5,11 @@ type Movie {
   year: String
 }
 
+type MovieSearchResult {
+  data: [Movie!]!
+  totalResults: Int
+}
+
 type Query {
-   searchMovies(title: String!): [Movie!]! @isAuth
+   searchMovies(title: String!, page: Int!): MovieSearchResult! @isAuth
 }

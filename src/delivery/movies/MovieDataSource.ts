@@ -1,5 +1,4 @@
 import { DataSource } from "apollo-datasource";
-import { IUseCaseProvider } from "../../dependency-injection/IUseCaseProvider";
 import { MovieAPI } from "../../core/movie/usecase/MovieAPI";
 
 export class MovieDataSource implements DataSource {
@@ -11,7 +10,7 @@ export class MovieDataSource implements DataSource {
         this.context = config.context;
     }
 
-    async searchMovies(title) {
-        return await this.movieAPI.getByTitle(title);
+    async searchMovies(title: string, page: number) {
+        return await this.movieAPI.getByTitle(title, page);
     }
 }

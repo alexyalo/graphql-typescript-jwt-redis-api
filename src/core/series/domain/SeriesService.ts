@@ -1,24 +1,24 @@
-import { Series } from "./Series";
 import { ISeriesRepository } from "./ISeriesRepository";
 import { ISeriesCacheService } from "./ISeriesCacheService";
+import { SeriesSearchResult } from "./SeriesSearchResult";
 
 export class SeriesService {
     constructor(private seriesRepository: ISeriesRepository, private cacheService: ISeriesCacheService) { }
 
-    public async search(title: string): Promise<Series[]> {
-        let cachedResult = await this.cacheService.getByKey(title);
+    public async search(title: string, page: number): Promise<SeriesSearchResult> {
+        let cachedResult = await this.cacheService.getByKey(title, page);
         if (cachedResult) {
             return cachedResult;
         }
         
-        let repoResult = await this.seriesRepository.searchByTitle(title);
+        let repoResult = await this.seriesRepository.searchByTitle(title, page);
 
-        this.saveToCache(title, repoResult);
+        this.saveToCache(title, page, repoResult);
 
         return repoResult;
     }
 
-    saveToCache(title: string, movies: Series[]) {
-        this.cacheService.set(title, movies);
+    saveToCache(title: string, page: number, movies: SeriesSearchResult) {
+        this.cacheService.set(title, page, movies);
     }
 }

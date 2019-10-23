@@ -1,0 +1,15 @@
+type Series {
+  title: String
+  imdbID: String
+  poster: String
+  year: String
+}
+
+type SeriesSearchResult {
+  data: [Series!]!
+  totalResults: Int
+}
+
+type Query {
+   searchSeries(title: String!, page: Int!): SeriesSearchResult! @isAuth
+}

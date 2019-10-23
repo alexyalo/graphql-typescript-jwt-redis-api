@@ -1,0 +1,18 @@
+type Episode {
+  title: String
+  released: String
+  episode: String
+  imdbRating: String
+  imdbID: String
+}
+
+type EpisodeSearchResult {
+  title: String
+  totalSeasons: String
+  season: String
+  data: [Episode!]!
+}
+
+type Query {
+   searchEpisodes(title: String!, season: Int!): EpisodeSearchResult! @isAuth
+}

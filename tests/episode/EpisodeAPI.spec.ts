@@ -10,15 +10,18 @@ import { TestEpisodeRepository } from './TestEpisodeRepository';
 describe('EpisodeAPI Test', () => {
  
   it('should call EpisodeRepository when a search is done', () => {
+    // given
     let episodeService = new EpisodeService(new TestEpisodeRepository(), new TestEpisodeCacheService());
     let searchSpy = sinon.spy();
     episodeService.search = searchSpy;
+    let season = 1;
 
+    // when
     let episodeAPI = new EpisodeAPI(episodeService);
-
-    episodeAPI.getByTitle('The Godfather');
+    episodeAPI.getByTitle('The Godfather', season);
     
-    assert(searchSpy.calledWithExactly('The Godfather'));
+    // then
+    assert(searchSpy.calledWithExactly('The Godfather', season));
   });
  
 });

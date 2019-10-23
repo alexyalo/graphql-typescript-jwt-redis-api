@@ -8,6 +8,7 @@ import { Movie } from '../../src/core/movie/domain/Movie';
 import { IMovieCacheService } from '../../src/core/movie/domain/IMovieCacheService';
 import { TestMovieCacheService } from './TestMovieCacheService';
 import { TestMovieRepository } from './TestMovieRepository';
+import { MovieSearchResult } from '../../src/core/movie/domain/MovieSearchResult';
 
 describe('MovieService Test', () => {
 
@@ -15,14 +16,12 @@ describe('MovieService Test', () => {
         title: 'The Godfather',
         year: 1980,
         imdbID: "imdbID",
-        type: "movie",
         poster: "test"
     };
     let movie2: Movie = {
         title: 'The Godfather 2',
         year: 1982,
         imdbID: "imdbID",
-        type: "movie",
         poster: "test"
     };
 
@@ -35,10 +34,11 @@ describe('MovieService Test', () => {
         let fakeCacheResponse = new Promise((resolve) => resolve(expectedMovie));
         let cacheServiceGetFake = sinon.fake.returns(fakeCacheResponse);
         let cacheService = getCacheServiceWith(cacheServiceGetFake);
+        let page = 1;
 
         // when
         let movieService = new MovieService(movieRepository, cacheService);
-        let actualMovie = await movieService.search('The Godfather');
+        let actualMovie = await movieService.search('The Godfather', page);
 
         // then
         expect(actualMovie).to.eql(expectedMovie);
@@ -46,7 +46,10 @@ describe('MovieService Test', () => {
 
     it('should get movie array from movieRepository and set cache when cache is null', async () => {
         // given
-        let expectedMovie = [movie1, movie2];
+        let expectedMovie: MovieSearchResult = {
+            totalResults: 2,
+            data: [movie1, movie2]
+        }
         let movieResult = new Promise((resolve) => resolve(expectedMovie));
         let movieServiceSearchFake = sinon.fake.returns(movieResult);
         let movieRepository = getMovieRepositoryWith(movieServiceSearchFake);
@@ -54,14 +57,15 @@ describe('MovieService Test', () => {
         let cacheServiceGetFake = sinon.fake.returns(null);
         let cacheServiceSetSpy = sinon.spy();
         let cacheService = getCacheServiceWith(cacheServiceGetFake, cacheServiceSetSpy);
-
+        let page = 1;
+        
         // when
         let movieService = new MovieService(movieRepository, cacheService);
-        let actualMovie = await movieService.search('The Godfather');
+        let actualMovie = await movieService.search('The Godfather', page);
 
         // then
         expect(actualMovie).to.eql(expectedMovie);
-        assert(cacheServiceSetSpy.calledWithExactly('The Godfather', expectedMovie));
+        assert(cacheServiceSetSpy.calledWithExactly('The Godfather', page, expectedMovie));
     });
 
     /* --------------------- */

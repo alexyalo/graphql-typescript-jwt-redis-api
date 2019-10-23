@@ -5,6 +5,9 @@ ENV PROJECT_NAME api
 ENV PROJECT_ROOT /opt/api
 
 # Install dependencies
+RUN apt-get update
+RUN apt-get install node-gyp python gcc --yes --force-yes
+
 RUN mkdir -p /tmp/$PROJECT_NAME
 ADD package.json /tmp/$PROJECT_NAME/package.json
 RUN cd /tmp/$PROJECT_NAME/ && npm install
