@@ -25,6 +25,17 @@ After starting the docker containers you should see a message like "Server ready
 ### Playground
 Now you can go to the GraphQL playground and test the service. If you haven't changed the PORT in .env file, then the url will be http://localhost:4001/graphql
 
+# Architecture
+The code was separated into the following layers
+* **Application**: This is the entry point and is located at the root of `/src` folder (app.ts, main.ts)
+* **Dependency Injection**: Used by the Application layer to provide abstractions of domain services, infrastructure services, repositories and use cases.
+* **Core**: This is where we find the domain (use cases, services, repository abstractions) for searching Movies, Series and Episodes and the corresponding infrastructure implementations.
+* **Delivery**: This is what Uncle Bob calls the Delivery Layer and encapsulates all GraphQL related logic.
+* **Infrastructure**: Common infrastructure HTTP related objects, implemented by the Core infrastructure repositories implementations.
+
+Notice how we can separate the layers by applying the Dependency Inversion rule and our Core Domain classes don't know about the existence of classes outside this layer, instead it only knows about abstractions, for which there are implementations injected in the Application layer. 
+
+
 # Tests
 In the tests folder you will see there are e2e tests that verify the Apollo Server integration works from end to end, and also specific Unit Tests for core functionality.
 
