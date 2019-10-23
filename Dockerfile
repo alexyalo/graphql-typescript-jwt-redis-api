@@ -5,9 +5,8 @@ ENV PROJECT_NAME api
 ENV PROJECT_ROOT /opt/api
 
 # Install dependencies
-RUN apt-get update
 # These packages are needed in order to build the sqlite3 and bcrypt binaries
-RUN apt-get install node-gyp python gcc --yes --force-yes
+RUN apt-get update && apt-get install node-gyp python gcc --yes --force-yes
 
 RUN mkdir -p /tmp/$PROJECT_NAME
 ADD package.json /tmp/$PROJECT_NAME/package.json
