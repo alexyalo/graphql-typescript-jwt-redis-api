@@ -4,9 +4,9 @@ import { EpisodeSearchResult } from "../../src/core/episode/domain/EpisodeSearch
 
 export class TestEpisodeCacheService implements IEpisodeCacheService {
     set(key: string, season: number, value: EpisodeSearchResult) {
-        throw new Error("Method not implemented.");
     }
+
     getByKey(key: string, season: number): Promise<EpisodeSearchResult> {
-        throw new Error("Method not implemented.");
+        return new Promise((resolve) => resolve());
     }
 }

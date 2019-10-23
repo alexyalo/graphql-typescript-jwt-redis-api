@@ -38,6 +38,34 @@ describe('Auth e2e Test', () => {
         expect(parsedResponse).to.have.nested.property('errors[0].message').equals('Unauthorized');
     });
 
+    it('should return Unauthorized 401 http code when searching a movie without login', async () => {
+        // given
+        let query = `query{
+            searchMovies(title: "Godfather", page: 1) 
+            {
+                totalResults
+                data{
+                    title
+                    imdbID
+                    poster
+                }
+            }
+          }`;
+
+        // when
+        let response = await fetch('http://localhost:3001/graphql', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query })
+        });
+        let parsedResponse = await response.json();
+        
+        // then
+        expect(parsedResponse).to.have.nested.property('errors[0].message').equals('Unauthorized');
+    });
+
     it('should return jwt token on createUser mutation', async () => {
         // given
         let testEmail = 'test1@test.com';

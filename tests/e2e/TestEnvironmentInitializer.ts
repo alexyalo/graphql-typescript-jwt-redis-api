@@ -6,11 +6,11 @@ import { App } from '../../src/app';
 import { ApolloServer } from "apollo-server-express";
 import { RepositoryProvider } from "../../src/dependency-injection/RepositoryProvider";
 import { environment } from "../../src/environment";
-import { CacheServiceProvider } from "../../src/dependency-injection/CacheServiceProvider";
 import { ServiceProvider } from "../../src/dependency-injection/ServiceProvider";
 import { UseCaseProvider } from "../../src/dependency-injection/UseCaseProvider";
 import { DataSourceProvider } from "../../src/dependency-injection/DataSourceProvider";
 import { HttpClient } from "../../src/infrastructure/http/HttpClient";
+import { TestCacheServiceProvider } from "./TestCacheServiceProvider";
 
 class TestEnvironmentInitializer {
     private server: ApolloServer;
@@ -22,7 +22,7 @@ class TestEnvironmentInitializer {
 
         let httpClient = new HttpClient();
         let repositoryProvider = new RepositoryProvider(httpClient, environment);
-        let cacheServiceProvider = new CacheServiceProvider(environment);
+        let cacheServiceProvider = new TestCacheServiceProvider();
         let serviceProvider = new ServiceProvider(repositoryProvider, cacheServiceProvider);
         let useCaseProvider = new UseCaseProvider(serviceProvider);
         let dataSourceProvider = new DataSourceProvider(useCaseProvider);

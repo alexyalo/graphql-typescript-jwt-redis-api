@@ -4,9 +4,8 @@ import { SeriesSearchResult } from "../../src/core/series/domain/SeriesSearchRes
 
 export class TestSeriesCacheService implements ISeriesCacheService {
     set(title: string, page: number, value: SeriesSearchResult) {
-        throw new Error("Method not implemented.");
     }
     getByKey(title: string, page: number): Promise<SeriesSearchResult> {
-        throw new Error("Method not implemented.");
+        return new Promise((resolve) => resolve());
     }
 }
