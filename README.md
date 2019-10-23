@@ -1,6 +1,6 @@
 # GraphQL API Challenge
 
-This is a GraphQL API designed with the following concepts in mind:
+This is a Dockerized GraphQL API built with Typescript and designed with the following concepts in mind:
 * Clean Architecture
 * Clean Code
 * SOLID Principles
@@ -47,7 +47,7 @@ $ npm run test
 ## Run Tests on your host machine
 If you want to run the tests in your host machine instead of inside the Docker then folow this.
 This project was built in the LTS Node version 10.16.3, so please use `nvm` to switch your node version to this.
-Go to the root folder of the project and run this
+Then go to the root folder of the project and run this
 ```
 $ npm install
 $ npm run test
@@ -56,7 +56,14 @@ $ npm run test
 If you have any issue when building sqlite3 or bcrypt binaries you will need to install node-gyp, python and gcc commands. Running the tests inside the Docker container is preferable.
 
 ## JWT
-All queries performed (except for loginUser) must have the Authorization HTTP Header with a value of type "Bearer {jwtToken}".
+All queries performed (except for loginUser and mutation createUser) must have the Authorization HTTP Header with a value of type "Bearer {jwtToken}".
+In the playground go to HTTP Headers and set this
+```
+{
+  "Authorization": "Bearer {YOUR_JWT_TOKEN}"
+}
+```
+Replace {YOUR_JWT_TOKEN} with your actual token you got in login or createUser.
 
 ## ENV
 For the purposes of this challenge the .env files are not ignored as they should be in a real world project.
