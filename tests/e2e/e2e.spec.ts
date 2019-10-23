@@ -5,7 +5,7 @@ import { TestUtils } from "./TestUtils";
 
 const testUtils: TestUtils = new TestUtils(); 
 
-describe('Auth e2e Test', () => {
+describe('e2e Tests', () => {
     before(async () => {
         testEnvironmentInitializer.init();
     });
