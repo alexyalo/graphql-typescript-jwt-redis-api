@@ -94,7 +94,7 @@ query{
 }
 ```
 
-### Movies
+### Movies (needs authentication)
 ```
 query{
     searchMovies(title: "Godfather", page: 1) 
@@ -110,7 +110,7 @@ query{
 }
 ```
 
-### Series
+### Series (needs authentication)
 ```
 query{
     searchSeries(title: "Friends", page: 1) 
@@ -126,7 +126,7 @@ query{
 }
 ```
 
-### Episodes
+### Episodes (needs authentication)
 In this query, you have to specify the title of the series and the season number and the API will return the episodes in that series season.
 ```
 query{
