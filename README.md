@@ -1,6 +1,6 @@
 # GraphQL API Challenge
 
-This is a GraphQL API designed with concepts the following concepts in mind:
+This is a GraphQL API designed with the following concepts in mind:
 * Clean Architecture
 * Clean Code
 * SOLID Principles
@@ -22,6 +22,12 @@ This will generate 3 containers:
 
 After starting the docker containers you should see a message like "Server ready at...." and "Connected to the database". That means everything is ready.
 
+### Playground
+Now you can go to the GraphQL playground and test the service. If you haven't changed the PORT in .env file, then the url will be http://localhost:4001/graphql
+
+# Tests
+In the tests folder you will see there are e2e tests that verify the Apollo Server integration works from end to end, and also specific Unit Tests for core functionality.
+
 ## Run Tests inside the API Docker Container
 You can see your running containers with the command
 ```
@@ -29,16 +35,16 @@ $ docker ps
 ```
 Now you can enter the container running a command like this
 ```
-$ docker exec -it {CONTAINER_NAME} /bin/bash
+$ docker exec -it {API_CONTAINER_NAME} /bin/bash
 ```
-Replace {CONTAINER_NAME} with the API container name.
+Replace {API_CONTAINER_NAME} with the API container name.
 
 Now run
 ```
 $ npm run test
 ```
 
-## Run Tests on your host
+## Run Tests on your host machine
 If you want to run the tests in your host machine instead of inside the Docker then folow this.
 This project was built in the LTS Node version 10.16.3, so please use `nvm` to switch your node version to this.
 Go to the root folder of the project and run this
